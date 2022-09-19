@@ -25,7 +25,7 @@
 
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form action="Serv_InicioSesion" >
+          <form action='Serv_InicioSesion' >
           <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
             <p class="lead fw-norm
                al mb-0 me-3">Ingresa con </p>
