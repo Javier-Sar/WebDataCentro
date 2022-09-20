@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registrar Persona</title>
-        <jsp:include page="PRUEBA.jsp" />
+        <jsp:include page="EsqumaNav.jsp" />
         <link href="CSS/Estilos_RstPrs.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>

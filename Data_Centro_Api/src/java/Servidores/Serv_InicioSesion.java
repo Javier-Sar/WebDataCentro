@@ -77,12 +77,12 @@ public class Serv_InicioSesion extends HttpServlet {
                         }
                     }
                     
-                    request.getRequestDispatcher("Vistas_Dashboard/Dashboard.jsp").forward(request, response);
+                   request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
                     break;
 
                 case "FALSE":
                     System.out.println("se vino switch case false ");
-                    request.getRequestDispatcher("Vistas_Dashboard/Dashboard.jsp").forward(request, response);
+                   request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
                     break;
 
             }

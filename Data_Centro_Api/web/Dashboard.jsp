@@ -10,13 +10,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>DASHBOARD</title>
-        <jsp:include page="PRUEBA.jsp" />
+        <jsp:include page="EsqumaNav.jsp" />
         <link href="CSS/Estilos_PrsRst.css" rel="stylesheet" type="text/css"/>
+    
     </head>
     <body>
         <div class="container text-center">
             <div class="card" style="width:400px">
                 <img class="card-img-top" src="bi.jpg" alt="Card image">
+               
 
                 <div class="card-body">
                     <h4 class="card-title">Ingresos</h4>

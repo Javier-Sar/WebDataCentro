@@ -19,10 +19,11 @@
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <div class="container-fluid">
                 <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
-  <img src="bi.jpg" alt="Logo" style="width:60px;" class="rounded-pill"/>
-  </button>
-              
-              
+                    <img src="bi.jpg" alt="Logo" style="width:60px;" class="rounded-pill"/>
+               
+                </button>
+
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -45,44 +46,44 @@
                                 <li><a class="dropdown-item" href="Nav_Principal?accion=3" id="3">Dar de baja a personal</a></li>
                             </ul>
                         </li>
-                       
+
                     </ul>
-                    
+
                 </div>
-                
+
             </div>
             <div class="dropdown">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">
-    Cerrar Sesion
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#"></a></li>
-    <li><a class="dropdown-item" href="#">Link 2</a></li>
-    <li><a class="dropdown-item" href="#">Link 3</a></li>
-  </ul>
-</div>
+                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">
+                    Cerrar Sesion
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"></a></li>
+                    <li><a class="dropdown-item" href="#">Link 2</a></li>
+                    <li><a class="dropdown-item" href="#">Link 3</a></li>
+                </ul>
+            </div>
         </nav>
 
-        
+
         <div class="offcanvas offcanvas-start" id="demo">
-  <div class="offcanvas-header">
-    <h1 class="offcanvas-title">DATA CENTRO CF</h1>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
-    <p>Centro de computo CF </p>
-    <p>Centro de computo BRS</p>
-    <br><!-- comment -->
-    <br><br>
-  <a class="btn btn-primary" href="Dashboard.jsp">Dashboard</a>
-  </div>
-</div>
+            <div class="offcanvas-header">
+                <h1 class="offcanvas-title">DATA CENTRO CF</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p>Centro de computo CF </p>
+                <p>Centro de computo BRS</p>
+                <br><!-- comment -->
+                <br><br>
+                <a class="btn btn-primary" href="Dashboard.jsp">Dashboard</a>
+            </div>
+        </div>
 
 
- 
-</div>
 
-       
-    </body>
+    </div>
+
+
+</body>
 </html>
 

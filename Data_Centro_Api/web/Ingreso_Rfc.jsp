@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>REGISTRO DE INGRESO A CF</title>
-        <jsp:include page="PRUEBA.jsp" />
+        <jsp:include page="EsqumaNav.jsp" />
         <link href="CSS/Estilos_RstPrs.css" rel="stylesheet" type="text/css"/>
         <script src="Javascript/newjavascript.js" type="text/javascript"></script>
         

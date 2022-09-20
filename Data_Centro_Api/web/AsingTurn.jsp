@@ -1,6 +1,6 @@
 <%-- 
-    Document   : AnularPrsn
-    Created on : 30 ago 2022, 20:39:39
+    Document   : AsingTurn
+    Created on : 30 ago 2022, 20:39:59
     Author     : javie
 --%>
 
@@ -9,10 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Anular Personal</title>
-        <jsp:include page="PRUEBA.jsp />
+        <title>Asignacion Turnos</title>
+        <jsp:include page="EsqumaNav.jsp" />
+        
     </head>
     <body>
-        <h1>Anular personal registrado</h1>
+        <h1>Asingacion turnos</h1>
     </body>
 </html>

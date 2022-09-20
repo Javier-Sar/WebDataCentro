@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Solicitud de usuario</title>
-        <jsp:include page="PRUEBA.jsp" />
+        <jsp:include page="EsqumaNav.jsp" />
     </head>
     <body>
         <h1>Solicitud</h1>
