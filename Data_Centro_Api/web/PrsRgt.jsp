@@ -10,10 +10,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         
                   <title>Personas Registradas</title>
         <jsp:include page="EsqumaNav.jsp" />
         <link href="CSS/Estilos_PrsRst.css" rel="stylesheet" type="text/css"/>
+             
+        <link href="../../../../../../../Downloads/tables/datatables.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../../../../../Downloads/tables/DataTables-1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+    
+               
     </head>
     <body>
         <div class="container justify-content-center" >
@@ -21,7 +27,7 @@
             <h2>Personal Registrado</h2>
         
             <div class="col-md-9" >
-                <table class="table table-striped" style="margin-left:auto;margin-right:auto;">
+                <table class="table table-striped" style="margin-left:auto;margin-right:auto;" id="usuarios">
                     <thead>
                            <tr>
                             <th scope="col">ID</th>
@@ -53,5 +59,7 @@
             </div>
             </div>
         </div>
+        <script src="Tables.js" type="text/javascript"></script>
+        <script src="../../../../../../../Downloads/tables/datatables.min.js" type="text/javascript"></script>
     </body>
 </html>

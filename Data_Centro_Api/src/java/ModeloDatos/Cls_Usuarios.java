@@ -15,6 +15,15 @@ public class Cls_Usuarios {
     private String pass;
     private String estado;
     private String rol;
+    private String Nombre;
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
 
     public int getId() {
         return id;

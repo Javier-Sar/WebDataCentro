@@ -1,0 +1,52 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 23 sept 2022, 14:36:07
+    Author     : javie
+*/
+
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calabri, 'Trebucht MS', sans-serif;
+    
+    
+}
+
+.form{
+    
+   padding: 10px;
+   background: #f6f6f6;
+}
+
+input,button{
+    
+    width: 100%;
+    margin-bottom: 3px;
+    
+}
+
+label{
+    font-weight: bold;
+    
+    
+}
+
+button{
+    background-color: #139e70;
+    color: white;
+    border: none;
+    padding: 5px;
+    
+    
+}
+
+
+#list > div{
+    
+    background: #94fab3;
+    padding: 3px;
+    margin-top: 10px;
+    
+}

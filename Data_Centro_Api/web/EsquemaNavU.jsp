@@ -14,7 +14,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
          <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-
+     
     </head>
     <body>
         <script>
@@ -49,23 +49,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="Nav_Principal?accion=0">Inicio</a>
+                        
+                        
+                         <li class="nav-item">
+                            <a class="nav-link" href="DashboardUsr.jsp">INICIO</a>
                         </li>
+                        
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="Nav_Principal?accion=4" id="4" disabled="">Turnos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Nav_Principal?accion=5" id="5">Control Ingresos CF</a>
+                            <a class="nav-link" href="Sev_Procesamiento?accion=13" id="5">INGRESOS CF</a>
                         </li>  
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Personal</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="Nav_Principal?accion=1" id="1" name="1">Personal Registrado</a></li>
-                                <li><a class="dropdown-item" href="Nav_Principal?accion=2" id="2">Registral Personal</a></li>
-                                <li><a class="dropdown-item" href="Nav_Principal?accion=3" id="3">Dar de baja a personal</a></li>
-                            </ul>
-                        </li>
+                        
+                       
 
                     </ul>
 
@@ -76,7 +71,7 @@
                 <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">
                     Cerrar Sesion
                 </button>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu  text-center">
                     <li><a class="dropdown-item" href="#">  <img src="imagenes/sesion.jpg" style="width:40px;" class="rounded-pill"/></a></li>
 
                     <li><a class="dropdown-item" href="#">${info.getCorp()}</a></li>
@@ -99,12 +94,12 @@
                 <br><!-- comment -->
                 <br><br>
 
-                <div class="card-text text-center">
-                    <p>${info.getCorp()}</p>
-                    <p>${info.getPrimer_Nom()} ${info.getSegun_Nom()} ${info.getPrimer_Apell()} ${info.getSegun_Apell()}</p>
-                    <p>${info.getPuesto()}</p>
+                <div class="card-text">
+                    <p>Corporativo: ${info.getCorp()}</p>
+                    <p>Nombre: ${info.getPrimer_Nom()} ${info.getSegun_Nom()} ${info.getPrimer_Apell()} ${info.getSegun_Apell()}</p>
+                    <p>Puesto: ${info.getPuesto()}</p>
                     <p></p>
-                    <a class="btn btn-primary" href="Dashboard.jsp">Dashboard</a>
+                    <a class="btn btn-primary" href="DashboardUsr.jsp">Dashboard</a>
                 </div>
 
 

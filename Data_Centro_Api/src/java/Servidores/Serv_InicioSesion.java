@@ -5,6 +5,9 @@
 package Servidores;
 
 import Dao.Dao_Usuario;
+import Dao.Dao_Visitas;
+import ModeloDatos.Cls_EstadoSol;
+import ModeloDatos.Cls_InfoUser;
 import ModeloDatos.Cls_Usuarios;
 import ModeloDatos.Cls_Valida_User;
 import java.io.IOException;
@@ -38,52 +41,80 @@ public class Serv_InicioSesion extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            System.out.println("Por lo menos entro");
-            String usr = request.getParameter("usr");
-            System.out.println(usr);
-            String pass = request.getParameter("pass");
-            System.out.println(pass);
 
-            Dao_Usuario dao_usr = new Dao_Usuario();
-            Cls_Valida_User usrr = new Cls_Valida_User();
-            
-            
-        
-            
+            String accion = request.getParameter("accion");
+            System.out.println("accion" + accion);
 
-          
-            try {
-                usrr = dao_usr.Valida_Usr(usr, pass);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Serv_InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            switch (accion) {
+                case "1":
+                    Dao_Usuario dao_usr = new Dao_Usuario();
+                    Cls_Valida_User usrr = new Cls_Valida_User();
 
-          
-
-            System.out.println("resultado" + usrr.getResultado());
-
-            switch (usrr.getResultado()) {
-                case "TRUE":
-                    
-                   
-                    System.out.println("se vino switch case true ");
-                    Cls_Usuarios info = new Cls_Usuarios();
-                     {
-                        try {
-                            info = dao_usr.Inf_Usr(usr);
-                            request.getSession().setAttribute("info", info);
-                        } catch (ClassNotFoundException ex) {
-                            Logger.getLogger(Serv_InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    String usr = request.getParameter("usr");
+                    System.out.println(usr);
+                    String pass = request.getParameter("pass");
+                    System.out.println(pass);
+                    try {
+                        usrr = dao_usr.Valida_Usr(usr, pass);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Serv_InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                   request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
-                    break;
+                    System.out.println("resultado" + usrr.getResultado());
 
-                case "FALSE":
-                    System.out.println("se vino switch case false ");
-                   request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
-                    break;
+                    switch (usrr.getResultado()) {
+                        case "TRUE":
+
+                            System.out.println("se vino switch case true ");
+                            Cls_InfoUser info = new Cls_InfoUser();
+                             {
+                                info = dao_usr.InfoUser(usr);
+                                request.getSession().setAttribute("info", info);
+
+                            }
+                            switch (info.getRol()) {
+
+                                case "OPERADOR":
+                                    request.getRequestDispatcher("Vistas_Operador.jsp").forward(request, response);
+                                    break;
+                                case "ADMINISTRADOR":
+                                    request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+                                    break;
+
+                                case "USUARIO":
+                                    Dao_Visitas daoVisitas = new Dao_Visitas();
+                                    Cls_EstadoSol esta = new Cls_EstadoSol();
+
+                                     {
+                                        try {
+                                            esta = daoVisitas.EstadoSoli(usr);
+                                            request.getSession().setAttribute("esta", esta);
+                                        } catch (ClassNotFoundException ex) {
+                                            Logger.getLogger(Serv_InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+
+                                    request.getRequestDispatcher("DashboardUsr.jsp").forward(request, response);
+                                    break;
+
+                                case "MONITOREO":
+                                    request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+                                    break;
+                            }// FINIS SWITCH DENTRO DE SWITHC
+
+                            break;
+
+                        case "FALSE":
+                            System.out.println("se vino switch case false ");
+                            request.getRequestDispatcher("login_inicial.jsp").forward(request, response);
+                            break;
+
+                    }
+                    break; // fin de case 1 switch principal
+                    
+                case "2":
+                        request.getSession().setAttribute("info", null);
+                          request.getRequestDispatcher("login_inicial.jsp").forward(request, response);
+                        break;
 
             }
 

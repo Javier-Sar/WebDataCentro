@@ -25,7 +25,7 @@
 
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form action='Serv_InicioSesion' >
+          <form action='Serv_InicioSesion' method="POST">
           <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
             <p class="lead fw-norm
                al mb-0 me-3">Ingresa con </p>
@@ -73,7 +73,7 @@
          
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="submit" class="btn btn-primary btn-lg"  
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;" name="accion" value="1">Login</button>
             <p class="small fw-bold mt-2 pt-1 mb-0">Si no tienes cuenta solicitala con sistemas centrales <a href="solicitud_usuario.jsp"
                 class="link-danger">Petición</a></p>
           </div>

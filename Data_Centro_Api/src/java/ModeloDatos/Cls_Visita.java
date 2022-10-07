@@ -10,7 +10,7 @@ package ModeloDatos;
  */
 public class Cls_Visita {
     
-    private int ID;
+private int ID;
 private String NOMBRE_RESPONSABLE;
 private String APELLIDO_RESPONSABLE;
 private String CORPORATIVO;

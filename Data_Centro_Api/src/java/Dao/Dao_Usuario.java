@@ -5,6 +5,7 @@
 package Dao;
 
 import Configuracion.Conexion;
+import ModeloDatos.Cls_InfoUser;
 import ModeloDatos.Cls_Usuarios;
 import ModeloDatos.Cls_Valida_User;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import static java.util.Objects.isNull;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,10 +97,19 @@ public class Dao_Usuario {
 
     public Cls_Usuarios Inf_Usr(String usrr) throws ClassNotFoundException {
 
-        String consulta = "SELECT U.ID, U.USUARIO, U.PASS, E.DESCRIPCION_E, P.DESCRIPCION_P from TB_USERS U,TB_EST_USER E, TB_PERFIL P\n"
+        String consulta = "SELECT C.CORPORATIVO,C.PRIMER_NOMBRE,C.SEGUNDO_NOMBRE,C.PRIMER_APELLIDO,C.SEGUNDO_APELLIDO,C.DEPENDENCIA,C.PUESTO, T.DESCRIPCION_P\n" +
+"FROM  TB_USUARIOS_CORPORATIVOS C, TB_PERFIL T,TB_USERS U\n" +
+"WHERE C.CORPORATIVO ='"+usrr+"' AND\n" +
+"U.PERFIL = T.ID AND\n" +
+"U.USUARIO = C.CORPORATIVO";
+                
+                /*
+                "SELECT U.ID, U.USUARIO, U.PASS, E.DESCRIPCION_E, P.DESCRIPCION_P from TB_USERS U,TB_EST_USER E, TB_PERFIL P\n"
                 + "WHERE U.ESTADO= E.ID AND\n"
                 + "U.PERFIL = P.ID AND\n"
                 + "U.USUARIO ='" + usrr + "'";
+
+*/
         System.out.println("Consulta hacia bd: " + consulta);
         List<Cls_Usuarios> lista = new ArrayList();
 
@@ -118,6 +129,9 @@ public class Dao_Usuario {
                 System.out.println(usr.getRol());
                 usr.setEstado(rs.getString("DESCRIPCION_E"));
                 System.out.println(usr.getEstado());
+                usr.setNombre(rs.getString("NOMBRE"));
+                System.out.println(usr.getNombre());
+            
                 lista.add(usr);
 
             }
@@ -132,5 +146,54 @@ public class Dao_Usuario {
 
         return res;
     }//info usuarios
+    
+    
+    public Cls_InfoUser InfoUser(String corp){
+    
+         String consulta = "SELECT C.CORPORATIVO,C.PRIMER_NOMBRE,C.SEGUNDO_NOMBRE,C.PRIMER_APELLIDO,C.SEGUNDO_APELLIDO,C.DEPENDENCIA,C.PUESTO, T.DESCRIPCION_P\n" +
+"FROM  TB_USUARIOS_CORPORATIVOS C, TB_PERFIL T,TB_USERS U\n" +
+"WHERE C.CORPORATIVO ='"+corp+"' AND\n" +
+"U.PERFIL = T.ID AND\n" +
+"U.USUARIO = C.CORPORATIVO";
+        System.out.println("Consulta hacia bd: " + consulta);
+        List<Cls_InfoUser> lista = new ArrayList();
+
+        try {
+            con = cn.open();
+            ps = con.prepareStatement(consulta);
+            rs = ps.executeQuery();
+            if(rs.wasNull()){
+                System.out.println("objeto vacio");
+                return null;
+            }else{
+             while (rs.next()) {
+                Cls_InfoUser usr = new Cls_InfoUser();
+                usr.setCorp(rs.getString("CORPORATIVO"));
+                usr.setPrimer_Nom(rs.getString("PRIMER_NOMBRE"));
+                usr.setSegun_Nom(rs.getString("SEGUNDO_NOMBRE"));
+                usr.setPrimer_Apell(rs.getString("PRIMER_APELLIDO"));
+                usr.setSegun_Apell(rs.getString("SEGUNDO_APELLIDO"));
+                usr.setDependencia(rs.getString("DEPENDENCIA"));
+                usr.setPuesto(rs.getString("PUESTO"));
+                usr.setRol(rs.getString("DESCRIPCION_P"));
+            
+                lista.add(usr);
+
+            }
+            } //fin de else if
+            
+           
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Dao_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Dao_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+  
+
+
+        return lista.get(0);
+    }
 
 }
