@@ -20,19 +20,32 @@ public class Conexion {
      private PreparedStatement preparar = null;    
     private  Connection coneccion=null;    
     private ResultSet resultado = null;
+    private String usr ="administrador";
+    private String pass="Banco2022.";
+    
      //Cadena de Conexion
-    String stringConnectionUrl = "jdbc:sqlserver://DESKTOP-V38TSKH\\JAVIER;databaseName=BD_DATACENTRO";
+    //String stringConnectionUrl = "jdbc:sqlserver://DESKTOP-V38TSKH\\JAVIER;databaseName=BD_DATACENTRO";
+    
+    //cadena azure
+    String stringConnectionUrl ="jdbc:sqlserver://proyectosjav.database.windows"
+            + ".net:1433;database=BD_DATACENTRO;user="+usr+"@proyectosjav;"
+            + "password="+pass+";encrypt=true;trustServerCertificate=false"
+            + ";hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+    
     //Driver o controlador JDBC
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     
     public Connection open() throws ClassNotFoundException{        
         try {  
-                Class.forName(driver);
-                coneccion = DriverManager.getConnection(stringConnectionUrl,"sa","97javier97");
+                 Class.forName(driver);
+               // coneccion = DriverManager.getConnection(stringConnectionUrl,"sa","97javier97");
+                coneccion = DriverManager.getConnection(stringConnectionUrl);
+                System.out.println("Conectado");
                 
         } catch (SQLException e) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, e);            
             System.out.println("Excepción: " + e.getMessage());
+            System.out.println("No conectado");
         }
         return coneccion;
     }

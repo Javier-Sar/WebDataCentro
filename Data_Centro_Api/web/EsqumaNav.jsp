@@ -14,6 +14,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
          <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+         
+         
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
     </head>
     <body>
@@ -63,7 +68,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="Nav_Principal?accion=1" id="1" name="1">Personal Registrado</a></li>
                                 <li><a class="dropdown-item" href="Nav_Principal?accion=2" id="2">Registral Personal</a></li>
-                                <li><a class="dropdown-item" href="Nav_Principal?accion=3" id="3">Dar de baja a personal</a></li>
+                              
                             </ul>
                         </li>
 

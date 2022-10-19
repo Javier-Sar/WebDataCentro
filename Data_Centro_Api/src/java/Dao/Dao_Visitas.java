@@ -202,6 +202,28 @@ public class Dao_Visitas {
 
     }//fin erolla personal
 
+    public boolean EnrollaPerinterno(String Corp, int noSol) {
+
+        boolean res = false;
+
+        String sentencia = "INSERT INTO TB_GRUPO_PERSONAL_INTERNO"
+                + "(ID_SOLICITUD,CORPORATIVO)\n"
+                + "VALUES(" + noSol + ",'" + Corp + "')";
+        try {
+            cn.open();
+            System.out.println("query que se ejecutara" + sentencia);
+            res = cn.executeSql(sentencia);
+            System.out.println("resputa insert" + res);
+            cn.close();
+
+        } catch (Exception ex) {
+            Logger.getLogger(Dao_Visitas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+
+    }//fin erolla personal
+
     public Cls_EstadoSol EstadoSoli(String Corp) throws ClassNotFoundException {
 
         String pendientes = "select COUNT(*) PEN_AUTORIZACION from TB_SOLICITUD \n"
@@ -450,10 +472,28 @@ public class Dao_Visitas {
     public boolean CambiaEstatus(int No_Sol, int Status, String Comentario) {
 
         boolean res = false;
+        
+        String sentencia ="";
+        
+switch(Status){
 
-        String sentencia = "UPDATE TB_SOLICITUD\n"
-                + "SET ID_ESTATUS =" + Status + ",COMENTARIO='" + Comentario + "'\n"
+    case 2:
+           sentencia = "UPDATE TB_SOLICITUD\n"
+                + "SET ID_ESTATUS =" + Status + ","
+                      + "COMENTARIO_AUTORIZA='" + Comentario + "'\n"
                 + "WHERE ID_SOLICITUD =" + No_Sol + "";
+        break;
+        
+        
+    case 3: 
+          sentencia = "UPDATE TB_SOLICITUD\n"
+                + "SET ID_ESTATUS =" + Status + ","
+                      + "COMENTARIO_DENI='" + Comentario + "'\n"
+                + "WHERE ID_SOLICITUD =" + No_Sol + "";
+        break;
+}
+           
+
         try {
             cn.open();
             System.out.println("query que se ejecutara" + sentencia);
@@ -484,7 +524,8 @@ public class Dao_Visitas {
                 + "E.ID_ESTATUS_SOL = S.ID_ESTATUS AND\n"
                 + "V.ID_TP_VISITA = S.TP_SOLICITUD AND\n"
                 + "CF.ID_AREA_CF = S.ID_AREA AND\n"
-                + "S.ID_ESTATUS ="+idEstatus+"";
+                + "S.ID_ESTATUS =" + idEstatus + ""
+                + "ORDER BY S.ID_SOLICITUD DESC";
         System.out.println("Consulta hacia bd: " + consulta);
         List<Cls_Vistas_Autorizar> lista = new ArrayList();
 
@@ -522,13 +563,12 @@ public class Dao_Visitas {
 
         return lista;
     }/// fin de listar usuarios
-    
-    
-    public boolean CambiaEstatusSimple(int No_sol, int Status){
-    boolean res = false;
+
+    public boolean CambiaEstatusSimple(int No_sol, int Status) {
+        boolean res = false;
 
         String sentencia = "UPDATE TB_SOLICITUD\n"
-                + "SET ID_ESTATUS =" + Status +"\n "
+                + "SET ID_ESTATUS =" + Status + "\n "
                 + "WHERE ID_SOLICITUD =" + No_sol + "";
         try {
             cn.open();
@@ -542,6 +582,80 @@ public class Dao_Visitas {
         }
 
         return res;
+    }
+
+    public List Lst_Historico(String fechaI, String FechaF, int estado) {
+        String consulta = "";
+        if (estado == 0) {
+            consulta = "SELECT S.ID_SOLICITUD, S.CORP_CREA, C.PRIMER_NOMBRE,"
+                    + " C.PRIMER_APELLIDO,S.FECHA_SOLICITUD,"
+                    + "S.FECHA_INGRESO_PREV,S.HORA_INGRESO_PREV,\n"
+                    + "S.FECHA_EGRESO_PREV,S.HORA_EGRESO_PREV, "
+                    + "E.DESCRIPCION_ESTATUS, V.DESCRIPCION_TPVISTA,"
+                    + " S.NO_RELACION_SOL, CF.DESCRIPCION_AREA, S.COMENTARIO\n"
+                    + "FROM TB_SOLICITUD S, TB_USUARIOS_CORPORATIVOS C, TB_ESTATUS_SOL E,"
+                    + " TB_TP_VISTA V, TB_AREAS_CF CF\n"
+                    + "WHERE S.CORP_CREA = C.CORPORATIVO AND\n"
+                    + "E.ID_ESTATUS_SOL = S.ID_ESTATUS AND\n"
+                    + "V.ID_TP_VISITA = S.TP_SOLICITUD AND\n"
+                    + "CF.ID_AREA_CF = S.ID_AREA  AND\n"
+                    + "FECHA_INGRESO_PREV BETWEEN '" + fechaI + "' AND '" + FechaF + "'";
+            System.out.println("Consulta hacia bd: " + consulta);
+        } else {
+            consulta = "SELECT S.ID_SOLICITUD, S.CORP_CREA, C.PRIMER_NOMBRE,"
+                    + " C.PRIMER_APELLIDO,S.FECHA_SOLICITUD,S.FECHA_INGRESO_PREV,"
+                    + "S.HORA_INGRESO_PREV,\n"
+                    + "S.FECHA_EGRESO_PREV,S.HORA_EGRESO_PREV, E.DESCRIPCION_ESTATUS, "
+                    + "V.DESCRIPCION_TPVISTA, S.NO_RELACION_SOL, "
+                    + "CF.DESCRIPCION_AREA, S.COMENTARIO\n"
+                    + "FROM TB_SOLICITUD S, TB_USUARIOS_CORPORATIVOS C, "
+                    + "TB_ESTATUS_SOL E, TB_TP_VISTA V, TB_AREAS_CF CF\n"
+                    + "WHERE S.CORP_CREA = C.CORPORATIVO AND\n"
+                    + "E.ID_ESTATUS_SOL = S.ID_ESTATUS AND\n"
+                    + "V.ID_TP_VISITA = S.TP_SOLICITUD AND\n"
+                    + "CF.ID_AREA_CF = S.ID_AREA  AND\n"
+                    + "ID_ESTATUS = "+estado+" AND\n"
+                    + "FECHA_INGRESO_PREV BETWEEN '2022-09-21' AND '2022-10-29'";
+            System.out.println("Consulta hacia bd: " + consulta);
+        }
+
+        List<Cls_Vistas_Autorizar> lista = new ArrayList();
+
+        try {
+            con = cn.open();
+            ps = con.prepareStatement(consulta);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cls_Vistas_Autorizar v = new Cls_Vistas_Autorizar();
+                v.setID_SOLICITUD(rs.getInt("ID_SOLICITUD"));
+                v.setCORP_CRE(rs.getString("CORP_CREA"));
+                v.setPRIMER_NOMBRE(rs.getString("PRIMER_NOMBRE"));
+                v.setPRIMER_APELLIDO(rs.getString("PRIMER_APELLIDO"));
+                v.setFECHA_SOLICITUD(rs.getString("FECHA_SOLICITUD"));
+
+                v.setFECHA_INGRESO_PREV(rs.getString("FECHA_INGRESO_PREV"));
+                String[] f = rs.getString("HORA_INGRESO_PREV").split("\\.");
+                v.setHORA_INGRESO_PREV(f[0]);
+                v.setFECHA_EGRESO_PREV(rs.getString("FECHA_EGRESO_PREV"));
+                String[] e = rs.getString("HORA_EGRESO_PREV").split("\\.");
+                v.setHORA_EGRESO_PREV(e[0]);
+                v.setESTATUS_SOL(rs.getString("DESCRIPCION_ESTATUS"));
+                v.setTP_VISITA(rs.getString("DESCRIPCION_TPVISTA"));
+                v.setNO_RELACION(rs.getString("NO_RELACION_SOL"));
+                v.setAREA(rs.getString("DESCRIPCION_AREA"));
+                v.setCOMENTARIO_SOL(rs.getString("COMENTARIO"));
+
+                lista.add(v);
+
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Dao_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Dao_Visitas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lista;
     }
 
 }

@@ -9,6 +9,7 @@ import Dao.Dao_Visitas;
 import ModeloDatos.Cls_CreaVisita;
 import ModeloDatos.Cls_InfoUser;
 import ModeloDatos.Cls_Personal_Externo;
+import ModeloDatos.Cls_Usuarios;
 import ModeloDatos.Cls_Visita;
 import ModeloDatos.Cls_Vistas_Autorizar;
 
@@ -24,6 +25,22 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+/*LIBRERIAS PARA CORRERLO EN APACHE
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+*/
+/*
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+*/
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,6 +89,11 @@ public class Sev_Procesamiento extends HttpServlet {
                     request.getRequestDispatcher("Ingreso_Rfc.jsp").forward(request, response);
                     break;
 
+                case "00":
+                
+                    request.getRequestDispatcher("Ingreso_Rfc_Cord.jsp").forward(request, response);
+                    break;
+
                 case "1":
                      try {
                     lista = daoVisita.Vistas_Pen_Auto();
@@ -97,18 +119,18 @@ public class Sev_Procesamiento extends HttpServlet {
                 case "4": // cambia estatus a visita en transcurso
                     inciaVisita(request, response);
                     break;
-                    
+
                 case "5":  // inicia la visitas en transcurso 
-                    VisitaTranscurso(request,response);
+                    VisitaTranscurso(request, response);
                     break;
-                    
+
                 case "6":
                     DetalleTranscurso(request, response);
                     break;
-                    
+
                 case "7":
-                    
-                    FinalizaVisitia(request,response);
+
+                    FinalizaVisitia(request, response);
                     break;
                 case "10":
                     System.out.println("Case10");
@@ -200,6 +222,19 @@ public class Sev_Procesamiento extends HttpServlet {
                 case "17":
                     DeniSol(request, response);
                     break;
+                case "30": // case de 30 a 40 es para usuarios y personal
+                    ActualizaUser(request, response);
+                    break;
+                case "31": // case de 30 a 40 es para usuarios y personal
+
+                    break;
+                case "32": // case de 30 a 40 es para usuarios y personal
+
+                    break;
+
+                case "40": //case 40 a 50 historicos
+                    GeneraHistorico(request, response);
+                    break;
                 default:
 
                     System.out.println("Se vino por defoult");
@@ -253,17 +288,20 @@ public class Sev_Procesamiento extends HttpServlet {
 
         Cls_InfoUser c = new Cls_InfoUser();
         Dao_Usuario daoUsuario = new Dao_Usuario();
-
+        Dao_Visitas daoVisitas = new Dao_Visitas();
+        boolean res = false;
         PrintWriter out;
         try {
             out = response.getWriter();
 
             String corp = request.getParameter("corp");
+            int NoSol = Integer.parseInt(request.getParameter("NoSol"));
 
             c = daoUsuario.InfoUser(corp);
             if (isNull(c)) {
                 System.out.println("No existe");
             } else {
+                res = daoVisitas.EnrollaPerinterno(corp, NoSol);
                 JSONObject json = new JSONObject();
                 json.put("Nombre", c.getPrimer_Nom());
                 json.put("SNombre", c.getSegun_Nom());
@@ -335,11 +373,7 @@ public class Sev_Procesamiento extends HttpServlet {
             request.setAttribute("VisitasD", listaD);
             request.getRequestDispatcher("SolicitudesUser.jsp").forward(request, response);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
-            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ClassNotFoundException | ServletException | IOException ex) {
             Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -399,11 +433,7 @@ public class Sev_Procesamiento extends HttpServlet {
             request.getRequestDispatcher("Detalle_Vista_Cord.jsp").forward(request, response);
 
         } //
-        catch (ClassNotFoundException ex) {
-            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
-            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        catch (ClassNotFoundException | ServletException | IOException ex) {
             Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -529,7 +559,6 @@ public class Sev_Procesamiento extends HttpServlet {
         System.out.println(No_Sol);
         boolean res = false;
 
-        
         try {
             res = daoVisitas.CambiaEstatusSimple(No_Sol, 4);
             request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
@@ -545,20 +574,19 @@ public class Sev_Procesamiento extends HttpServlet {
         try {
             Dao_Visitas daoVisitas = new Dao_Visitas();
             List<Cls_Vistas_Autorizar> listaA = new ArrayList();
-            
+
             listaA = daoVisitas.Lst_Sol_Estatus(4);
             request.setAttribute("listaPro", listaA);
             request.getRequestDispatcher("VistasTranscurso.jsp").forward(request, response);
-            
+
         } catch (ClassNotFoundException | ServletException | IOException ex) {
             Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
 
     private void DetalleTranscurso(HttpServletRequest request, HttpServletResponse response) {
-       
-    
+
         Dao_Visitas daoVisitas = new Dao_Visitas();
         Cls_Vistas_Autorizar c = new Cls_Vistas_Autorizar();
         List<Cls_Visita> listaP = new ArrayList();
@@ -580,17 +608,13 @@ public class Sev_Procesamiento extends HttpServlet {
             request.getRequestDispatcher("Detalle_Visita_Transcurso.jsp").forward(request, response);
 
         } //
-        catch (ClassNotFoundException ex) {
-            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
-            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        catch (ClassNotFoundException | ServletException | IOException ex) {
             Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void FinalizaVisitia(HttpServletRequest request, HttpServletResponse response) {
-    String accionA = request.getParameter("accion");
+        String accionA = request.getParameter("accion");
         System.out.println("ACCION FINALIZA" + accionA);
         String ComentD = request.getParameter("Comen");
         System.out.println("Coment FINALIZA " + ComentD);
@@ -600,23 +624,58 @@ public class Sev_Procesamiento extends HttpServlet {
 
         Dao_Visitas daoVisitas = new Dao_Visitas();
         boolean res = false;
-           List<Cls_Vistas_Autorizar> listaA = new ArrayList();
+        List<Cls_Vistas_Autorizar> listaA = new ArrayList();
         try {
 
             res = daoVisitas.CambiaEstatus(idSol, 5, ComentD);
             System.out.println("Respuesta" + res);
-    
-            
+
             listaA = daoVisitas.Lst_Sol_Estatus(4);
             request.setAttribute("listaPro", listaA);
             request.getRequestDispatcher("VistasTranscurso.jsp").forward(request, response);
-            
+
         } catch (ServletException | IOException ex) {
             Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("exit lstvisitaspnd");
         }
-}
+    }
+
+    private void ActualizaUser(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String usr = request.getParameter("USR");
+            System.out.println("usr" + usr);
+            Dao_Usuario daoUsuario = new Dao_Usuario();
+
+            Cls_Usuarios InfoUsr = new Cls_Usuarios();
+            InfoUsr = daoUsuario.InfoUSR(usr);
+            request.setAttribute("u", InfoUsr);
+            request.getRequestDispatcher("UsuarioEditar.jsp").forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void GeneraHistorico(HttpServletRequest request, HttpServletResponse response) {
+
+        String fechaI = request.getParameter("fechaI");
+        String fechaF = request.getParameter("fechaF");
+        int estado = Integer.parseInt(request.getParameter("estado"));
+        Dao_Visitas daoVisitas = new Dao_Visitas();
+
+        try {
+
+            List<Cls_Vistas_Autorizar> listaA = new ArrayList();
+
+            listaA = daoVisitas.Lst_Historico(fechaI, fechaF, estado);
+            request.setAttribute("listaPro", listaA);
+            request.getRequestDispatcher("HistoricoGen.jsp").forward(request, response);
+
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(Sev_Procesamiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 }

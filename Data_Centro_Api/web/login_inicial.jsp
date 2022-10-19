@@ -26,22 +26,11 @@
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
           <form action='Serv_InicioSesion' method="POST">
-          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-            <p class="lead fw-norm
-               al mb-0 me-3">Ingresa con </p>
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-              <i class="fab fa-facebook-f"></i>
-            </button>
-
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-              <i class="fab fa-twitter"></i>
-            </button>
-
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-              <i class="fab fa-linkedin-in"></i>
-            </button>
-          </div>
-
+         
+              <div class="container-fluid text-center">
+                 
+                  <p><h2><b>SISTEMA DE GESTION CENTRO DE COMPUTO CF</b></h2></p>
+                           </div>
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center fw-bold mx-3 mb-0">Bienvenido a Corporación BI</p>
           </div>
@@ -90,22 +79,7 @@
     </div>
     <!-- Copyright -->
 
-    <!-- Right -->
-    <div>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="#!" class="text-white">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
-    </div>
-    <!-- Right -->
+ 
   </div>
 </section>
         

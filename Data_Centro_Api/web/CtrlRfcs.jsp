@@ -31,7 +31,7 @@
                                 <h4 class="card-title text-center">FORMULARIO DE INGRESO</h4>
                                 <p class="card-text">Formulario para ingreso de 
                                     personal al centro de computo</p>
-                                <a href="Sev_Procesamiento?accion=0"
+                                <a href="Sev_Procesamiento?accion=00"
                                    class="btn btn-primary container-fluid">
                                     <b>Ingreso de visita</b></a>
                             </div>
@@ -87,7 +87,7 @@
                                 <h4 class="card-title text-center">HISTORICO</h4>
                                 <p class="card-text">Podra ejecutar consultas de los
                                 historicos de las solicitudes</p>
-                               <a href="Ingreso_Rfc.jsp" 
+                               <a href="HistoricoGen.jsp" 
                                   class="btn btn-primary container-fluid">
                                    <b>Historial de visitas</b></a>
                             </div>

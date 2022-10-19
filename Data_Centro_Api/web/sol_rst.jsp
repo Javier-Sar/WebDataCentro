@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Restablecimiento</title>
-        <jsp:include page="EsqumaNav.jsp" />
+        
     </head>
     <body>
         <h1>Restablecimiento de contraseña</h1>

@@ -11,55 +11,81 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        
-                  <title>Personas Registradas</title>
+
+        <title>Personas Registradas</title>
         <jsp:include page="EsqumaNav.jsp" />
-        <link href="CSS/Estilos_PrsRst.css" rel="stylesheet" type="text/css"/>
-             
-        <link href="../../../../../../../Downloads/tables/datatables.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../../../../../../../Downloads/tables/DataTables-1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
-    
-               
+
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+
+
+
     </head>
     <body>
-        <div class="container justify-content-center" >
-            <div class="hijo text-center">
-            <h2>Personal Registrado</h2>
-        
-            <div class="col-md-9" >
-                <table class="table table-striped" style="margin-left:auto;margin-right:auto;" id="usuarios">
-                    <thead>
-                           <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">USUARIO</th>
-                            <th scope="col">PASS</th>
-                            <th scope="col">ESTADO</th>
-                            <th scope="col">ROL</th>
-                            </tr>
-                    </thead>
-                    <tbody>
-                       
-                        <c:forEach var="Cls_Usuarios" items="${usuario}">
+
+        <div class="container-fluid">
+            <div class="container-fluid" >
+                <br>
+                <h2 class="text-center  text-bg-secondary rounded-pill" ><b>
+                        USUARIOS</b></h2> <br>
+            </div>
+
+
+
+            <table id="table_id" class="table table-bordered table-sm display">
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>USUARIO</th>
+                        <th>PASS</th>
+                        <th>ESTADO</th>
+                        <th>ROL</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="Cls_Usuarios" items="${usuario}">
                         <tr>
-                            <th scope="row">${Cls_Usuarios.getId()}</th>
+
+                            <td>${Cls_Usuarios.getId()}</td>
                             <td>${Cls_Usuarios.getUsuario()}</td>
                             <td>${Cls_Usuarios.getPass()}</td>
                             <td>${Cls_Usuarios.getEstado()}</td>
                             <td>${Cls_Usuarios.getRol()}</td>
                             <td>
-                                <a class="btn btn-warning" href="Csontrolador?menu=Productos&accion=Cargar&id=">Actualizar</a>
-                                  <a class="btn btn-danger" href="Controlador?menu=Productos&accion=Eliminar&id=">Eliminar</a>
-                              
-                                   
+                                <a class="btn btn-warning" href="Sev_Procesamiento?accion=30&USR=${Cls_Usuarios.getUsuario()}">Editar</a>
+                                <a class="btn btn-info" href="Sev_Procesamiento?accion=31&USR=${Cls_Usuarios.getUsuario()}">Cambiar Contraseña</a>
+                                <a class="btn btn-danger" href="Sev_Procesamiento?accion=32&USR=${Cls_Usuarios.getUsuario()}">Dar de baja</a>
                             </td>
-                           </tr>
-                          </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-            </div>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+
         </div>
-        <script src="Tables.js" type="text/javascript"></script>
-        <script src="../../../../../../../Downloads/tables/datatables.min.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#table_id').DataTable({
+                    language: {
+                        search: "BUSCAR:",
+                        paginate: {
+                            first: "PRIMERA",
+                            previous: "ANTERIOR",
+                            next: "SIGUIENTE",
+                            last: "ULTIMA"
+                        }, loadingRecords: "CARGANDO USUARIOS",
+                        info: "USUARIOS Registros _START_ DE; _END_ de _TOTAL_;USUARIOS"
+
+                    }
+                });
+            });
+
+        </script>
     </body>
 </html>

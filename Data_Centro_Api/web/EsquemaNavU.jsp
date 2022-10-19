@@ -13,27 +13,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-         <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-     
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
     </head>
     <body>
         <script>
-        
-              $(function(){
-            // debugger;
-           
-            
-            // console.log(name);
-             if(${info.getCorp()}!null){
+
+            $(function () {
+                // debugger;
+
+
+                // console.log(name);
+                if (${info.getCorp()}!null) {
                     alert("FAVOR AUTENTICARSE");
-                  window.location.replace("login_inicial.jsp");
-                
-             }else{
-                 
-                
-             }
-                
-          });
+                    window.location.replace("login_inicial.jsp");
+
+                } else {
+
+
+                }
+
+            });
         </script>
 
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -49,18 +53,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
-                        
-                        
-                         <li class="nav-item">
+
+
+                        <li class="nav-item">
                             <a class="nav-link" href="DashboardUsr.jsp">INICIO</a>
                         </li>
-                        
-                        
+
+
                         <li class="nav-item">
                             <a class="nav-link" href="Sev_Procesamiento?accion=13" id="5">INGRESOS CF</a>
                         </li>  
-                        
-                       
+
+
 
                     </ul>
 

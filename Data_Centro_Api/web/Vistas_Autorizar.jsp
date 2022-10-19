@@ -16,21 +16,22 @@
         <link href="CSS/Estilos_PrsRst.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div >
+       
        
             <br>
             <br>
-            <div class="hijo text-center">
-                <h2>VISITAS PENDIENTES DE AUTORIZAR</h2>
-                  <br><!-- comment -->
-                        <br>
-                <div class="container">
-                    <div class="col-md-9" >
+            
+            <div class="container-fluid" >
+            <h2 class="text-center  text-bg-warning rounded-pill" ><b>
+                    PENDIENTES DE AUTORIZACION</b></h2> <br>
+            </div>
+            <div class="table-responsive" >
                       
-                        <table class="table table-striped" style="margin-left:auto;margin-right:auto;">
-                            <thead>
+                        <table class="table table-bordered table-sm display"
+                               style="margin-left:auto;margin-right:auto;" id="Pen">
+                            <thead class="table-dark">
                                 <tr>
-                                    <th scope="col"><h6>Id</h6></th>
+                                    <th scope="col"><h6>No</h6></th>
                                     <th scope="col"><h6>CORP</h6></th>
                                     <th scope="col"><h6>NOMBRE SOLICITANTE</h6></th>
                                     <th scope="col"><h6>FECHA SOLICITUD</h6></th>
@@ -50,7 +51,7 @@
 
                                 <c:forEach var="v" items="${Visitas}">
                                     <tr>
-                                        <th scope="row">${v.getID_SOLICITUD()}</th>
+                                        <td>${v.getID_SOLICITUD()}</td>
                                         <td>${v.getCORP_CRE()} </td>
                                         <td>${v.getPRIMER_NOMBRE()}  ${v.getPRIMER_APELLIDO()}</td>
                                         <td>${v.getFECHA_SOLICITUD()}</td>
@@ -76,9 +77,27 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-        </div>
+
+         
       
+        
+       <script type="text/javascript">
+            $(document).ready(function () {
+                $('#Pen').DataTable({
+                    language: {
+                        search: "BUSCAR:",
+                        paginate: {
+                            first: "PRIMERA",
+                            previous: "ANTERIOR",
+                            next: "SIGUIENTE",
+                            last: "ULTIMA"
+                        },  loadingRecords: "CARGANDO USUARIOS",
+                         info:"USUARIOS Registros _START_ DE; _END_ de _TOTAL_;USUARIOS"
+                 
+                    }
+                });
+            });
+
+        </script>
     </body>
 </html>
